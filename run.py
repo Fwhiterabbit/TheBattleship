@@ -1,7 +1,6 @@
 import os
 from random import randint
-from flask import Flask
-import json
+
 
 # change comments layout and style
 
