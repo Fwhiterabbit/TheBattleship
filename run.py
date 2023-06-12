@@ -1,36 +1,34 @@
 import os
-from random import randint
+import random
+import time
 
-
-# change comments layout and style
+"""
+updated optimised game v2
+"""
 
 BOARD_SIZE = 8
-
 Hidden_Pattern = [[" "] * BOARD_SIZE for _ in range(BOARD_SIZE)]
 Guess_Pattern = [[" "] * BOARD_SIZE for _ in range(BOARD_SIZE)]
 Previous_Guesses = []
 
-# Clears the console screen, is uses "os" module and thte system function to call the appropriate
-# command based on the operating system
+
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
-# This function prints the game the game board with the current state of the hidden
-# and guessed patterns, it displays the row and collumn labels along with the corresponding cells.
+
 def print_board(board):
     clear_screen()
     print("    .+*^*+. The Game Board .+*^*+.")
-    print('     A   B   C   D   E   F   G   H')
-    print('   ┌───┬───┬───┬───┬───┬───┬───┬───┐')
+    print("     A   B   C   D   E   F   G   H")
+    print("   ┌───┬───┬───┬───┬───┬───┬───┬───┐")
     for row_num, row in enumerate(board):
         row_label = str(row_num + 1)
-        print(' ' + row_label + ' │ ' + ' │ '.join(row) + ' │')
+        print(" " + row_label + " │ " + " │ ".join(row) + " │")
         if row_num < BOARD_SIZE - 1:
-            print('   ├───┼───┼───┼───┼───┼───┼───┼───┤')
-    print('   └───┴───┴───┴───┴───┴───┴───┴───┘')
+            print("   ├───┼───┼───┼───┼───┼───┼───┼───┤")
+    print("   └───┴───┴───┴───┴───┴───┴───┴───┘")
 
-# this function prompts the player to enter a guess for the location of a battleship.
-# It validates the input and returns the row and column indicates of thte guess.
+
 def get_ship_location():
     while True:
         guess = input("Enter a guess (e.g., 4B): ").upper()
@@ -38,38 +36,27 @@ def get_ship_location():
             return int(guess[0]) - 1, ord(guess[1]) - ord("A")
         print("Please enter a valid guess.")
 
-# This function randomly places battleships on the hidden patter board, is uses "randint" function
-# to determine the size, direction, and position of each battleship.
-
 
 def create_ships(board):
-    ship_sizes = [4, 3, 2, 1, ]
+    ship_sizes = [4, 3, 2, 1]
     for size in ship_sizes:
         ship_placed = False
         while not ship_placed:
-            direction = randint(0, 1)  # 0 for horizontal, 1 for vertical
+            direction = random.randint(0, 1)  # 0 for horizontal, 1 for vertical
             if direction == 0:  # horizontal placement
-                ship_r = randint(0, 7)
-                ship_cl = randint(0, 8 - size)
-                for i in range(size):
-                    if board[ship_r][ship_cl + i] != " ":
-                        break
-                else:
+                ship_r = random.randint(0, 7)
+                ship_cl = random.randint(0, 8 - size)
+                if all(board[ship_r][ship_cl + i] == " " for i in range(size)):
                     for i in range(size):
                         board[ship_r][ship_cl + i] = "■"
                     ship_placed = True
             else:  # vertical placement
-                ship_r = randint(0, 8 - size)
-                ship_cl = randint(0, 7)
-                for i in range(size):
-                    if board[ship_r + i][ship_cl] != " ":
-                        break
-                else:
+                ship_r = random.randint(0, 8 - size)
+                ship_cl = random.randint(0, 7)
+                if all(board[ship_r + i][ship_cl] == " " for i in range(size)):
                     for i in range(size):
                         board[ship_r + i][ship_cl] = "■"
                     ship_placed = True
-
-#  This function counts the number of hits (battleship) on the board
 
 
 def count_hit_ships(board):
@@ -78,8 +65,6 @@ def count_hit_ships(board):
         hit_count += row.count("■")
     return hit_count
 
-# This function calculate the accuracy of the players guesses
-
 
 def calculate_accuracy(guesses):
     total_guesses = 15
@@ -87,14 +72,19 @@ def calculate_accuracy(guesses):
     accuracy = (hits / total_guesses) * 100
     return accuracy
 
-# this fucntion ask the player if he or she wants to play again
-
 
 def play_again():
-    answer = input("Do you want to play again? (yes/no): ").lower()
-    return answer == "yes"
+    print(f"Thank you for playing Battleship, {username}")
+    answer = input("To go back to the main menu just hit Enter").lower()
+    return answer == "yes" or "y"
 
-# Function that prints welcome screen and main menu of the game
+
+def welcome_screen():
+    welcome_message = "Welcome to the Battleship Game!"
+    for char in welcome_message:
+        print(char, end="", flush=True)
+        time.sleep(0.1)
+    print("\nLet's get ready to sink some battleships!\n")
 
 
 def print_welcome():
@@ -108,8 +98,8 @@ def print_welcome():
     print("  2. Rules")
     print("  3. Quit Program")
     print("-----------------------")
-
-# This function prints the rules of the game
+    print(f"  -->   {username}   <--")
+    print("-----------------------")
 
 
 def print_rules():
@@ -118,21 +108,19 @@ def print_rules():
     print("|       RULES       |")
     print("-----------------------")
     print(
-        "  Guess the location of the hidden battleships using row and column coordinates."
+        "Guess the location of the hidden battleships\n using row and column coordinates."
     )
     print(
-        "  Each battleship occupies multiple consecutive cells either horizontally or vertically."
+        "Each battleship occupies multiple consecutive\n cells either horizontally or vertically."
     )
-    print(" You have 4, 3, 2, 1. Ships sprad out on the board randomly")
-    print("  You have 15 turns to guess the locations of the battleships.")
-    print('  Enter your guess in the format "A1", "B2", etc.')
+    print("You have 4, 3, 2, 1. Ships spread out on the board randomly")
+    print("You have 20 turns to guess the locations of the battleships.")
+    print('Enter your guess in the format "A1", "B2", etc.')
     print(
-        '  After each guess, the board will be updated to show hits ("X") and misses ("-").'
+        'After each guess, the board will be updated to\n show hits ("X") and misses ("-").'
     )
     print("-----------------------")
     input("Press Enter to go back to the main menu.")
-
-#  this function prints the game over screen displaying the players accuracy
 
 
 def print_outro(accuracy):
@@ -143,17 +131,27 @@ def print_outro(accuracy):
     print("    Accuracy: {:.2f}%".format(accuracy))
     print("-----------------------")
 
-# This function prints players previous guesses
-
 
 def print_previous_guesses():
     if Previous_Guesses:
         print("Previous Guesses:")
-        for guess in Previous_Guesses:
+        num_guesses = min(len(Previous_Guesses), 3)
+        for guess in Previous_Guesses[-num_guesses:]:
             print("Row:", guess[0] + 1, ", Column:", chr(guess[1] + ord("A")))
     else:
         print("No previous guesses.")
 
+
+def get_username():
+    welcome_screen()
+    time.sleep(2)
+    username = input("Enter your username: ")
+    return username
+
+
+username = ""
+while not username:
+    username = get_username()
 
 print_welcome()
 while True:
@@ -161,7 +159,7 @@ while True:
 
     if choice == "1":  # New Game
         create_ships(Hidden_Pattern)
-        turns = 15
+        turns = 20
         guesses = []
         while turns > 0:
             print_board(Guess_Pattern)
@@ -172,7 +170,11 @@ while True:
             if Guess_Pattern[guess[0]][guess[1]] == "-":
                 print("You already guessed that.")
             elif Hidden_Pattern[guess[0]][guess[1]] == "■":
-                print("Congratulations! You hit a battleship.")
+                print(
+                    f"Congratulations, {username}! You hit a battleship.".format(
+                        username
+                    )
+                )
                 Guess_Pattern[guess[0]][guess[1]] = "X"
                 guesses.append("X")
                 turns -= 1
@@ -190,8 +192,8 @@ while True:
         if not play_again():
             break
         else:
-            Hidden_Pattern = [[" "] * 8 for _ in range(8)]
-            Guess_Pattern = [[" "] * 8 for _ in range(8)]
+            Hidden_Pattern = [[" "] * BOARD_SIZE for _ in range(BOARD_SIZE)]
+            Guess_Pattern = [[" "] * BOARD_SIZE for _ in range(BOARD_SIZE)]
             Previous_Guesses = []
             print_welcome()
     elif choice == "2":  # Rules
@@ -201,3 +203,6 @@ while True:
         break
     else:
         print("Invalid choice. Please enter a number from 1 to 3.")
+        print_welcome()
+
+print("Thanks for playing Battleship!")
