@@ -1,31 +1,43 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# The game begins by displaying an intro where user can provide his nickname, after that we can go to the Main Menu.
+![intro](https://github.com/Fwhiterabbit/TheBattleship/assets/122694703/6e77d5a7-84e8-415e-bda6-7c96c4ad2b92)
 
-Welcome Fwhiterabbit,
+## New Game:
+![baord](https://github.com/Fwhiterabbit/TheBattleship/assets/122694703/c7a243b9-5b24-4bc7-9708-4dbf99cc0097)
+#### Upon selecting this option, the game initializes a game board and randomly places battleships on the hidden pattern board.
+#### The player has 20 turns to guess the locations of the battleships by entering row and column coordinates (e.g., "4B").
+#### After each guess, the game updates the board to indicate hits ("X") and misses ("-").
+#### If the player hits a battleship, a congratulatory message is displayed.
+#### If the player misses, a message indicating a miss is displayed.
+#### The game keeps track of previous guesses and displays up to three of the most recent guesses.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
 
-## Reminders
+## Rules:
+#### Selecting this option displays the rules of the game, providing an explanation of how to play Battleship.
+#### After reading the rules, the player can press Enter to return to the main menu.
+![rules](https://github.com/Fwhiterabbit/TheBattleship/assets/122694703/1e063d5a-6694-4d5f-acd2-c3208d325aa9)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+## End Game:
+#### After 20 turns, the game ends, and the player's accuracy is calculated based on the number of hits.
+#### The game displays the accuracy percentage and prompts the player to play again or return to the main menu.
+![end game](https://github.com/Fwhiterabbit/TheBattleship/assets/122694703/fe796e51-79c0-4d45-83cd-7ea612366842)
 
-## Creating the Heroku app
+## Quit Program:
+#### Choosing this option terminates the game and ends the program.
+#### The game incorporates various functions to handle different aspects:
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+#### The game board is displayed using the print_board() function.
+#### User input for guessing ship locations is obtained through the get_ship_location() function.
+#### Battleships are randomly placed on the hidden pattern board using the create_ships() function.
+#### The count_hit_ships() function counts the number of hits (battleships) on the board.
+#### The calculate_accuracy() function calculates the player's accuracy based on their hits.
+#### The play_again() function prompts the player to play again or return to the main menu.
+#### The welcome_screen() function displays a slowly printed welcome message before the main menu.
+#### The print_previous_guesses() function prints up to three previous guesses made by the player.
+#### The get_username() function prompts the player to enter their username.
 
-1. `heroku/python`
-2. `heroku/nodejs`
+## Testing:
+#### The code was tested and validate usgin flake8, major issues were fixed. The ones that remain are due to strings being too long. With regard to the strings length, it has been decided that they are to remain as is for design purposes.
+![PEP8](https://github.com/Fwhiterabbit/TheBattleship/assets/122694703/c10ff911-bfff-4219-8bc8-19a4810cdb39)
+#### How to validate python using flake8 method:
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+Overall, Python game provides a text-based Battleship experience where the player tries to sink battleships within a limited number of turns.
