@@ -39,5 +39,28 @@
 #### The code was tested and validate usgin flake8, major issues were fixed. The ones that remain are due to strings being too long. With regard to the strings length, it has been decided that they are to remain as is for design purposes.
 ![PEP8](https://github.com/Fwhiterabbit/TheBattleship/assets/122694703/c10ff911-bfff-4219-8bc8-19a4810cdb39)
 #### How to validate python using flake8 method:
+1. Install 'flake8' by running the following command in your terminal
+- pip install flake8
+2. Navigate to the directory where your Python file is located
+3. Run 'flake8' followed by the name of your Python file.
+- flake8 run.py
+4. Replace 'run.py' with the actual name of your Python file.
+## Bugs:
+#### No bugs have been found
+## Development and App control
+#### Whole app was constructed and developed using Visual Studio Code ( that is why there minght be high uploads on GitHub and lack of commits ) !
+## Deplyment:
+#### The application has been deployed to heroku. The steps taken were:
+#### Heroku:
+
+##### Open the "new" menu and click on "Create new app".
+##### Fill form fields with app name and region (Europe or USA) depends on where are you live. Click on "Create app".
+##### In the "Settings" section, click on "Add buildpack" and add Python and NodeJS, in that order.
+##### In "Deployment method", select the GitHub option and provide the repository details. Click on "Connect".
+##### Click on "Enable Automatic Deploys" and finally, click on "Deploy Branch" with comprahending repository.
+
+## Credits:
+- Game developed with the assistance of ChatGPT, an AI language model created by OpenAI.
+- Thank you to ChatGPT for helping in the development of this app.
 
 Overall, Python game provides a text-based Battleship experience where the player tries to sink battleships within a limited number of turns.
